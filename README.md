@@ -62,6 +62,7 @@ pip install requeriments.txt
 * In the <mark style="background-color: #00FF7F; border-radius: 3px; padding-left: 2px; padding-right: 2px">periodForecast( )</mark> function, the the api only shows the forecast of a maximum of 10 days from the current date.
 * You can navigate the menus using the indexes for each feature.
 * The maximum daily API requests limit is **10 DIFFERENT CITIES.** CAUTION: If the limit is exceeded, the program will return an **error**!
+* Create your own HG Weather API key by [Clicking Here](https://console.hgbrasil.com/documentation/weather).
 
 &nbsp;
 
