@@ -7,22 +7,21 @@ import os
 
 
 class WeatherForecast:
-    def __init__(self) -> None:
-        pass
-          
+    
     #DataFrame    
     def createDataFrame(self, citySearch):
         try:
-            #Requisição
+            #Request
             get_weather = requests.get(f"https://api.hgbrasil.com/weather?key=d2a11df6&city_name={citySearch}")
+            
         
         except Exception as erro:
             print("Ocorreu um erro na requisição da API (╥﹏╥). Entre em contato com o suporte técnico 🔧", erro)
 
         #Read the JSON, and convert to a DataFrame
         RESPONSE = pd.read_json(get_weather.text)
-        self.cityResponse:str = RESPONSE["results"]["city"]
-        if unidecode(self.cityResponse.strip().upper()) != unidecode(citySearch.strip().upper()):
+        self.city_response:str = RESPONSE["results"]["city"]
+        if unidecode(self.city_response.strip().upper()) != unidecode(citySearch.strip().upper()):
             print("Cidade não encontrada! Padrão: São Paulo, SP")
             citySearch = "São Paulo, SP"
         forecastFilter = RESPONSE["results"]["forecast"]       
@@ -43,18 +42,18 @@ class WeatherForecast:
             for value in forecastFilter:
                 ind += 1
                 f.write(f"{ind}, {value['date']}, {value['weekday']}, {value['max']}, {value['min']}, {value['description']}, {RESPONSE['results']['date']}\n")
-        return self.cityResponse
+        return self.city_response
     
     #Function that returns the weather forecast for a specified date and location.
     
     def dateForecast(self, dateF):
-        self.df["localização"] = self.cityResponse
+        self.df["localização"] = self.city_response
         return self.df.loc[self.df["date"] == dateF]
 
     #Function that returns the content between two specified dates
 
     def periodForecast(self, start_date, end_date):
-        self.df["localização"] = self.cityResponse
+        self.df["localização"] = self.city_response
         mask = (self.df['date'] >= start_date) & (self.df['date'] <= end_date)
         resultDf = self.df.loc[mask]
         return resultDf
@@ -62,15 +61,15 @@ class WeatherForecast:
     #Function that allows you to show only the days when the weather will be favorable.
 
     def perfectWeather(self, pWeather):
-        self.df["localização"] = self.cityResponse
+        self.df["localização"] = self.city_response
         return(self.df.loc[self.df["description"] == pWeather])
 
 #PerfectWeather function menu.
    
-def menuPerfWeather(cityResponse):
+def menuPerfWeather(city_response):
     print("\n")
     print(colored("█" * 18 + " CLIMA PERFEITO " + "█" * 17, "blue", attrs=["bold"]))
-    print(f"Localização: {cityResponse}")
+    print(f"Localização: {city_response}")
     print("1 - Tempo limpo")
     print("2 - Parcialmente nublado")
     print("3 - Tempo nublado")
@@ -81,10 +80,10 @@ def menuPerfWeather(cityResponse):
 
 #Main menu.
 
-def mainMenu(cityResponse):
+def mainMenu(city_response):
     print("\n")
     print(colored("█" * 16 + ' PREVISÃO DO TEMPO ' + "█" * 16, "green", attrs=["bold"]))
-    print(f"Localização: {cityResponse}")
+    print(f"Localização: {city_response}")
     print("1 - Previsão por data")
     print("2 - Previsão em um período de tempo")
     print("3 - Clima perfeito")

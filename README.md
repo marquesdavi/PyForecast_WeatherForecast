@@ -2,7 +2,6 @@
 
 &nbsp;
 <h2 style="text-align: center;">⚠️Read the instructions carefully⚠️</h2>
-<hr>
 &nbsp;
 
 # ☕ Description
