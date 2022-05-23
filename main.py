@@ -14,7 +14,7 @@ class WeatherForecast:
     def createDataFrame(self, citySearch):
         try:
             #Requisição
-            get_weather = requests.get(f"https://api.hgbrasil.com/weather?key=8c04a944&city_name={citySearch}")
+            get_weather = requests.get(f"https://api.hgbrasil.com/weather?key=d2a11df6&city_name={citySearch}")
         
         except Exception as erro:
             print("Ocorreu um erro na requisição da API (╥﹏╥). Entre em contato com o suporte técnico 🔧", erro)
